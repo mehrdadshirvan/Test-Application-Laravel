@@ -8,5 +8,21 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     use HasFactory;
-    protected $fillable = ['title','content','image'];
+    protected $fillable = ['user_id','title','content','image'];
+
+    public function comments()
+    {
+        return $this->morphMany(Comment::class,'commentable');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
+
 }
